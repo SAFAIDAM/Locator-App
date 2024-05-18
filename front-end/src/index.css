@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+ body{
+  overflow-x: hidden;
+  background-color: white;
+} 
+
+.search-input::-webkit-search-cancel-button {
+  /* Apply your styles here */  /* Remove default appearance */
+  width: 30px;
+  height: 30px;
+  padding-right: 60px;  /* Adjust padding based on content */
+  color: #ffff;
+  cursor: pointer; /* Add content for the "X" icon */
+  text-align: center;  /* Center the content */
+  font-size: 1.2rem;  /* Adjust font size for desired X size */
+  font-weight: bold;  /* Make the X bold */
+}
