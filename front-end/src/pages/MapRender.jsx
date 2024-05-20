@@ -21,7 +21,6 @@ function MapRender() {
       </div>
 
       {/** map render section */}
-
       
 
 
