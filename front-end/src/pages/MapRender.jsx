@@ -1,7 +1,7 @@
 import React from "react";
 import Logospace from "../components/Logospace";
 import HeaderDesktop from "../components/HeaderDesktop";
-import HeaderMobile from "../components/HeaderMobile";
+// import HeaderMobile from "../components/HeaderMobile";
 
 function MapRender() {
   return (
@@ -11,13 +11,13 @@ function MapRender() {
           <Logospace />
         </div>
 
-        <div className="hidden lg:block md:block ">
+        <div className="">
           <HeaderDesktop />
         </div>
 
-        <div className="bolck lg:hidden md:hidden ">
+        {/* <div className="bolck lg:hidden md:hidden ">
           <HeaderMobile />
-        </div>
+        </div> */}
       </div>
 
       {/** map render section */}
