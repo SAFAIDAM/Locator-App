@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { data } from "../Cities";
-7;
+import Rating from "@mui/material/Rating";
+import Stack from "@mui/material/Stack";
+import icondirectoin from "../assets/directionsIcon.svg"
 import axios from "axios";
-
+import mapimg from "../assets/mapimg.svg";
 function HeaderDesktop() {
   const [value, setValue] = useState("");
   const [data, setData] = useState([]);
@@ -92,7 +94,7 @@ function HeaderDesktop() {
       </div>
       {/**  Desktopheader here */}
       <div className="hidden lg:block md:block">
-      <nav className="mt-11 flex items-center gap-4 ">
+      <nav className="mt-11 flex items-center gap-5 ">
 
 <div className="relative flex-grow">
   <input
@@ -126,24 +128,33 @@ function HeaderDesktop() {
         strokeLinejoin="round"
       />
     </svg>
+    {/* <section className="flex-grow w-full md:w-2/3 lg:w-3/4 p-4 bg-[#F2F2F2] rounded-[30px]">
+          <img
+            className="w-full h-auto md:max-w-md lg:max-w-lg mx-auto"
+            src={mapimg}
+            alt="Map"
+          />
+        </section> */}
   </div>
+  
 </div>
 <div>
   {/** input Moroccan cities suggestions  */}
 
-  <div className="flex bg-[#F2F2F2] p-2 rounded-full pr-12 relative">
+  <div className="flex bg-[#F2F2F2] p-2 rounded-full md:pr-40 relative">
+
     <input
       onChange={handelInput}
       value={value}
       type="text"
       id="search-dropdown"
-      className="block p-[10px] w-[300%] z-20 text-sm text-[#787373] focus:ring-[#fff0] focus:border-blue-500 bg-[#F2F2F2] border border-none rounded-s-full "
+      className="block p-[10px] ml-1 w-[700%] z-20 text-sm text-[#787373] focus:ring-[#fff0] focus:border-blue-500 bg-[#F2F2F2] border border-none rounded-s-full "
       placeholder="Agadir, Morocco"
       required
     />
     <div
       id="dropdown-content"
-      className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[8rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-150%] ${
+      className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[12rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-130%] ${
         value ? "" : "hidden"
       }`}
     >
@@ -210,12 +221,13 @@ function HeaderDesktop() {
           </button>
         </li>
       </ul> */}
+      
     </div>
 
     {/**   */}
 
-    <div className="absolute inset-y-3 left-0 w-[3px] bg-[#8D8D8D] mx-36 z-40 rounded-t-lg rounded-b-lg"></div>
-    <div className="flex relative">
+    <div className="absolute inset-y-3 left-0 w-[2px] bg-[#8D8D8D] mx-52 z-40 rounded-t-lg rounded-b-lg"></div>
+    <div className="flex relative right-[-24%]">
       <button
         id="dropdown-button"
         data-dropdown-toggle="dropdown"
@@ -225,7 +237,7 @@ function HeaderDesktop() {
       >
         Distance
         <svg
-          className="w-2.5 h-2.5 ms-2.5 text-[#787373]"
+          className="w-2.5 h-2.5 ms-3.5 text-[#787373]"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -241,10 +253,10 @@ function HeaderDesktop() {
         </svg>
       </button>
     </div>
-    <div className="relative w-full">
+    <div className="relative w-full right-[-30%]">
       <button
         type="submit"
-        className="absolute min-w-20 text-sm font-medium h-full uppercase text-white bg-blue-700 rounded-[50px] border border-blue-700 hover:bg-blue-800"
+        className="absolute min-w-20 text-[13px] font-medium h-full uppercase text-white bg-[#1B7CB9] rounded-[50px] border border-[#1b7cb900] hover:bg-[#336686]"
       >
         Search
       </button>
@@ -252,10 +264,10 @@ function HeaderDesktop() {
 
     <div
       id="dropdown"
-      className="z-10  hidden bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-60%]"
+      className="z-10 hidden bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-90%]"
     >
       <ul
-        className="py-2 text-sm text-[#787373] dark:text-gray-200 s"
+        className="py-2 text-sm text-[#787373] dark:text-gray-200"
         aria-labelledby="dropdown-button"
       >
         <li>
@@ -277,7 +289,9 @@ function HeaderDesktop() {
         </li>
       </ul>
     </div>
+    
   </div>
+
 </div>
 </nav>
 

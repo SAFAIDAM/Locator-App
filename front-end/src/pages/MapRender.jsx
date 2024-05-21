@@ -1,6 +1,7 @@
 import React from "react";
 import Logospace from "../components/Logospace";
 import HeaderDesktop from "../components/HeaderDesktop";
+import MapList from "../components/MapList";
 // import HeaderMobile from "../components/HeaderMobile";
 
 function MapRender() {
@@ -18,9 +19,12 @@ function MapRender() {
         {/* <div className="bolck lg:hidden md:hidden ">
           <HeaderMobile />
         </div> */}
+        <MapList />
       </div>
 
       {/** map render section */}
+
+      
       
 
 
