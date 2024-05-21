@@ -94,7 +94,7 @@ function HeaderDesktop() {
       </div>
       {/**  Desktopheader here */}
       <div className="hidden lg:block md:block">
-      <nav className="mt-11 flex items-center gap-5 ">
+      <nav className="mt-11 flex items-center gap-4">
 
 <div className="relative flex-grow">
   <input
@@ -141,7 +141,7 @@ function HeaderDesktop() {
 <div>
   {/** input Moroccan cities suggestions  */}
 
-  <div className="flex bg-[#F2F2F2] p-2 rounded-full md:pr-40 relative">
+  <div className="flex bg-[#F2F2F2] p-2 rounded-full md:pr-36 relative">
 
     <input
       onChange={handelInput}
@@ -154,7 +154,7 @@ function HeaderDesktop() {
     />
     <div
       id="dropdown-content"
-      className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[12rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-130%] ${
+      className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[12rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-120%] ${
         value ? "" : "hidden"
       }`}
     >
@@ -253,7 +253,7 @@ function HeaderDesktop() {
         </svg>
       </button>
     </div>
-    <div className="relative w-full right-[-30%]">
+    <div className="relative w-full right-[-24%]">
       <button
         type="submit"
         className="absolute min-w-20 text-[13px] font-medium h-full uppercase text-white bg-[#1B7CB9] rounded-[50px] border border-[#1b7cb900] hover:bg-[#336686]"
@@ -264,7 +264,7 @@ function HeaderDesktop() {
 
     <div
       id="dropdown"
-      className="z-10 hidden bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-90%]"
+      className="z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%]"
     >
       <ul
         className="py-2 text-sm text-[#787373] dark:text-gray-200"

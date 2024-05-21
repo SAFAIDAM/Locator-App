@@ -2,13 +2,13 @@ import React from "react";
 import mapimg from "../assets/mapimg.svg";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
-import icondirectoin from "../assets/directionsIcon.svg"
+import icondirectoin from "../assets/directionsIcon.svg";
 
 function MapList() {
   return (
     <>
-      <div className="md:mt-11 md:flex items-start gap-5">
-        <section className="flex-grow w-full md:w-1/2 lg:w-2/3 p-4 bg-[#F2F2F2] rounded-[30px]">
+      <div className="md:mt-11 md:flex items-start gap-8">
+        <section className="flex-grow w-full md:w-1/3 lg:w-1/12 sm:w-2/3 p-4 bg-[#F2F2F2] rounded-[30px]">
           <img
             className="w-full h-auto md:max-w-md lg:max-w-lg mx-auto"
             src={mapimg}
@@ -47,7 +47,9 @@ function MapList() {
                   strokeWidth="1.5"
                 />
               </svg>
-              <p className="text-clip text-[13px] text-[#AAAAAA]">BP 333 Av. Kadi Ayad, Agadir 80000</p>
+              <p className="text-clip text-[13px] text-[#AAAAAA]">
+                BP 333 Av. Kadi Ayad, Agadir 80000
+              </p>
             </div>
             <div className="flex gap-1 items-center">
               <div></div>
@@ -63,18 +65,22 @@ function MapList() {
               <p className="text-[#AAAAAA] text-[12px]">(1,5K)</p>
             </div>
             <div className="flex gap-1 items-center">
-              <p className="flex items-center text-sm font-medium ml-1 text-[#78C65A]">Open</p>
-              <span className="">
-                .
-              </span>
-              <p className="text-sm font-medium ml-1 text-[#8D8D8D]">Closes at 12PM</p>
+              <p className="flex items-center text-sm font-medium ml-1 text-[#78C65A]">
+                Open
+              </p>
+              <span className="">.</span>
+              <p className="text-sm font-medium ml-1 text-[#8D8D8D]">
+                Closes at 12PM
+              </p>
             </div>
           </div>
           <div className="flex-col items-center ml-2 ">
             <button className="bg-black p-3 rounded-full">
-            <img src={icondirectoin} alt="" />
+              <img src={icondirectoin} alt="" />
             </button>
-            <p className="text-[11px] mt-1 text-[#8D8D8D] font-medium">DIRECTIONS</p>
+            <p className="text-[11px] mt-1 text-[#8D8D8D] font-medium">
+              DIRECTIONS
+            </p>
           </div>
         </section>
       </div>
