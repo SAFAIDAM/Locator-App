@@ -55,7 +55,7 @@ function HeaderDesktop() {
   return (
     <>
       {/**  Mobile header here */}
-      <div className="m-0 block lg:hidden md:hidden">
+      <div className="m-0 block lg:hidden md:hidden z-10 mobile-nav fixed top-0 left-0 right-0 bg-white shadow-md">
         <div className="relative">
           <div className="absolute inset-y-0 right-0 flex items-center mr-3 pointer-events-none">
             {" "}

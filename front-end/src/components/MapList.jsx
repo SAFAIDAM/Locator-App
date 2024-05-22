@@ -11,15 +11,12 @@ function MapList() {
   return (
     <>
       <div className="md:mt-6 md:flex items-start gap-8">
-        <section className="flex-grow w-full md:w-1/3 lg:w-1/12 sm:w-2/3  max-h-[36rem] p-4 bg-[#F2F2F2] rounded-[50px]">
-          <div className="relative w-full h-auto md:max-w-md lg:max-w-lg mx-auto">
+        <section className="flex-grow w-full md:w-1/3 lg:w-1/12 sm:w-2/3  max-h-[36rem] p-4 rounded-[50px]">
+          <div className="relative w-full h-auto md:max-w-md ">
             <iframe
               className="responsive-iframe"
               src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;coord=52.70967533219885, -8.020019531250002&amp;q=1%20Grafton%20Street%2C%20Dublin%2C%20Ireland&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"
-              frameborder="0"
-              scrolling="no"
-              marginheight="0"
-              marginwidth="0"
+              
             ></iframe>
             <button className="button lg:hidden absolute top-1 right-0 md:hidden flex p-2 bg-[#828282c0] rounded-full cursor-pointer">
               <svg
