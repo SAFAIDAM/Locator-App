@@ -1,4 +1,4 @@
-const data = [
+const Map = [
   {
     id: 1,
     location: "Agadir, Morocco",
@@ -80,7 +80,7 @@ const data = [
     ]
   },
   {
-    id: 4,
+    id: 5,
     location: "Agadir, Morocco",
     LocationMap: "Map 1 description",
     NumMap: "(40Km)",
@@ -100,7 +100,7 @@ const data = [
     ]
   },
   {
-    id: 4,
+    id: 6,
     location: "Agadir, Morocco",
     LocationMap: "Map 1 description",
     NumMap: "(40Km)",
@@ -120,7 +120,7 @@ const data = [
     ]
   },
   {
-    id: 4,
+    id: 7,
     location: "Agadir, Morocco",
     LocationMap: "Map 1 description",
     NumMap: "(40Km)",
@@ -141,4 +141,4 @@ const data = [
   }
 ];
 
-export default data;
+export default Map;

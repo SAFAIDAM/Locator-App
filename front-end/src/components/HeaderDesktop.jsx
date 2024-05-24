@@ -55,12 +55,12 @@ function HeaderDesktop() {
   return (
     <>
       {/**  Mobile header here */}
-      <div className="m-0 block lg:hidden md:hidden z-10 mobile-nav fixed top-0 left-0 right-0 bg-white shadow-md">
+      <div className="fixed top-0 left-0 right-0 z-10 block m-0 bg-white shadow-md lg:hidden md:hidden mobile-nav">
         <div className="relative">
           <div className="absolute inset-y-0 right-0 flex items-center mr-3 pointer-events-none">
             {" "}
             <svg
-              className="h-7 text-gray-500 dark:text-gray-400 mr-3"
+              className="mr-3 text-gray-500 h-7 dark:text-gray-400"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width={30}
@@ -94,7 +94,7 @@ function HeaderDesktop() {
       </div>
       {/**  Desktopheader here */}
       <div className="hidden lg:block md:block">
-        <nav className="mt-6 flex items-center gap-4">
+        <nav className="flex items-center gap-4 mt-6">
           <div className="relative flex-grow">
             <input
               type="search"
@@ -105,7 +105,7 @@ function HeaderDesktop() {
             />
             <div className="absolute inset-y-0 right-0 flex items-center mr-3 pointer-events-none">
               <svg
-                className="h-7 text-gray-500 dark:text-gray-400 mr-3"
+                className="mr-3 text-gray-500 h-7 dark:text-gray-400"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 width={30}
@@ -129,7 +129,7 @@ function HeaderDesktop() {
               </svg>
               {/* <section className="flex-grow w-full md:w-2/3 lg:w-3/4 p-4 bg-[#F2F2F2] rounded-[30px]">
           <img
-            className="w-full h-auto md:max-w-md lg:max-w-lg mx-auto"
+            className="w-full h-auto mx-auto md:max-w-md lg:max-w-lg"
             src={mapimg}
             alt="Map"
           />
@@ -148,7 +148,7 @@ function HeaderDesktop() {
                 className="block p-[10px] ml-1 w-[700%] z-20 text-sm text-[#787373] focus:ring-[#fff0] focus:border-blue-500 bg-[#F2F2F2] border border-none rounded-s-full "
                 placeholder="Agadir, Morocco"
                 required
-              />
+              />  
               <div
                 id="dropdown-content"
                 className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[12rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-120%] ${
