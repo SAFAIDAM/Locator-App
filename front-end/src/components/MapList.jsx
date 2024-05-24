@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import mapimg from "../assets/mapimg.svg";
 import Rating from "@mui/material/Rating";
-import Collapsible from "react-collapsible";
 import Stack from "@mui/material/Stack";
 import icondirectoin from "../assets/directionsIcon.svg";
 import axios from "axios";
@@ -13,8 +11,8 @@ function MapList() {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => {
+    console.log('waaa')
     setIsCollapsed(!isCollapsed);
-    console.log(isCollapsed);
   };
 
   const handelInput = async (e) => {
@@ -48,9 +46,6 @@ function MapList() {
   };
 
   const handleButtonClick = () => {
-
-    console.log('im beign clicked')
-
     const dropdown = document.getElementById("dropdown");
     dropdown.classList.toggle("hidden");
   };
@@ -61,7 +56,7 @@ function MapList() {
 
   const handleDropdownClick = (itemValue) => {
     setValue(itemValue);
-    setData([]); // Hide dropdown after selection
+    setData([]);
   };
 
   const collapsedIcon = (
@@ -178,7 +173,7 @@ function MapList() {
         <section className="flex-grow w-full md:w-1/3 lg:w-1/12 sm:w-2/3 max-h-[36rem] p-4 rounded-[50px] relative z-0 mt-[50px] md:mt-0">
           <div
             className={`relative w-full h-auto md:max-w-md ${
-              isCollapsed ? "h-36" : ""
+              isCollapsed ? "h-11" : "h-[590%]"
             } `}
           >
             <iframe
@@ -186,14 +181,14 @@ function MapList() {
               src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;coord=52.70967533219885, -8.020019531250002&amp;q=1%20Grafton%20Street%2C%20Dublin%2C%20Ireland&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"
             ></iframe>
             <button
-              className="button lg:hidden absolute top-1 right-0 md:hidden flex p-2 bg-[#828282c0] rounded-full cursor-pointer"
+              className="button lg:hidden absolute top-1 right-0 md:hidden flex p-2 bg-[#828282db] rounded-full cursor-pointer"
               onClick={toggleCollapse}
             >
               {isCollapsed ? collapsedIcon : expandedIcon}
             </button>
             <br />
           </div>
-        </section>
+        </section> 
 
         {/* <div> */}
           {/**  mobile header  */}
@@ -213,13 +208,13 @@ function MapList() {
               value={value}
               type="text"
               id="search-dropdown"
-              className="block p-[10px] ml-1 w-[700%] md:z-20 text-[13px] text-[#787373] focus:ring-[#fff0] focus:border-blue-500 bg-[#F2F2F2] border border-none rounded-s-full "
+              className="block p-[10px] ml-1 w-[900%] md:z-20 text-[13px] text-[#787373] focus:ring-[#fff0] focus:border-blue-500 bg-[#F2F2F2] border border-none rounded-s-full "
               placeholder="Agadir, Morocco"
               required
             />
             <div
               id="dropdown-content"
-              className={`md:z-10 z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[9rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-170%] ${
+              className={`md:z-10 z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[9rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-140%] ${
                 value ? "" : "hidden"
               }`}
             >
@@ -232,14 +227,14 @@ function MapList() {
                     <div
                       key={item.id}
                       onClick={() => handleDropdownClick(item.name)}
-                      className="cursor-pointer p-2 text-sm text-[#787373] ml-auto mr-auto"
+                      className="cursor-pointer p-2 text-[10.1px] text-[#787373] ml-auto mr-auto"
                     >
                       <div className="flex items-center gap-3">
                         <div>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            width={20}
+                            width={15}
                             height={20}
                             color={"#787373"}
                             fill={"none"}
@@ -267,12 +262,12 @@ function MapList() {
 
             {/**   */}
 
-            <div className="absolute inset-y-3 left-0 w-[2px] bg-[#8D8D8D] mx-32 md:z-40 rounded-t-lg rounded-b-lg"></div>
-            <div className="flex relative right-[-24%]">
+            <div className="absolute inset-y-3 left-0 w-[2px] bg-[#8D8D8D] mx-[8.9rem] md:z-40 rounded-t-lg rounded-b-lg"></div>
+            <div className="flex relative right-[-27px] ">
               <button
                 id="dropdown-button"
                 data-dropdown-toggle="dropdown"
-                className="flex-shrink-0 md:z-10 inline-flex items-center py-2.5 px-4 text-[14px] text-center bg-[#F2F2F2] text-[#787373]"
+                className="flex-shrink-0 md:z-10 inline-flex items-center py-[-6rem] px-[-6rem] text-[14px] text-center bg-transparent text-[#787373]"
                 type="button"
                 onClick={handleButtonClick}
               >
@@ -305,7 +300,7 @@ function MapList() {
 
             <div
               id="dropdown"
-              className="bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%] z-50"
+              className=" hidden bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%] z-50"
             >
               <ul
                 className="py-2 text-sm text-[#787373] dark:text-gray-200"

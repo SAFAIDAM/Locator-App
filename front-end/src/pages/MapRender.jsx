@@ -7,7 +7,7 @@ import MapList from "../components/MapList";
 function MapRender() {
   return (
     <>
-      <div className="h-screen md:mt-1 md:w-11/12 lg:w-[1260px] lg:ml-auto lg:mr-auto  md:ml-6 md:mr-6 ">
+      <div className="h-screen md:mt-1 md:w-11/12 lg:w-[1240px] lg:ml-auto lg:mr-auto  md:ml-6 md:mr-6 ">
         <div className="">
           {/* <Logospace /> */}
         </div>
