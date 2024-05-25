@@ -170,10 +170,10 @@ function MapList() {
   return (
     <>
       <div className="items-start block gap-8 lg:flex md:mt-6 ">
-        <section className="flex-grow w-full md:w-1/3 lg:w-1/12 sm:w-2/3 max-h-[36rem] p-4 rounded-[50px] relative z-0 mt-[50px] md:mt-0">
+        <section className="flex-grow w-full md:w-1/3 lg:w-1/12 sm:w-2/3 max-h-[36rem] p-4 rounded-[50px] relative z-0 mt-[54px] md:mt-0">
           <div
             className={`relative w-full h-auto md:max-w-md ${
-              isCollapsed ? "h-11" : "h-[590%]"
+              isCollapsed ? "h-1" : "h-[590%]"
             } `}
           >
             <iframe
@@ -200,7 +200,7 @@ function MapList() {
           
         </div>
         <div className="flex-col
-         md:z-0 md:w-1/3 lg:w-1/3 max-h-[36rem] md:overflow-y-auto lg:overflow-y-auto md:overflow-x-hidden pr-5 scrollbar-sec relative md:bg-transparent bg-[#ffff] pt-1 rounded-e-[50px]">
+         md:z-0 md:w-1/3 lg:w-1/3 max-h-[36rem] md:overflow-y-auto lg:overflow-y-auto md:overflow-x-hidden md:pr-5 pr-1 pl-1 scrollbar-sec relative md:bg-transparent bg-[#ffff] pt-1 rounded-e-[50px]">
         <div className="flex items-center justify-center mt-5 mb-5 lg:hidden md:hidden md:bg-transparent ">
           <div className="flex bg-[#F2F2F2] p-2 rounded-full pr-[8.4rem] relative w-[96%] ">
             <input
@@ -338,7 +338,7 @@ function MapList() {
             return (
               <section
                 key={item.id}
-                className="w-full mb-2 p-6 ml-1 flex items-center justify-between rounded-[40px] bg-[#F2F2F2] "
+                className="w-full mb-2 p-6 md:ml-1 ml-0 flex items-center justify-between rounded-[40px] bg-[#F2F2F2] "
               >
                 <div className="">
                   <ul>
