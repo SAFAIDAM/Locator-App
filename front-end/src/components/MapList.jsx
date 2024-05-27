@@ -11,9 +11,12 @@ function MapList() {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => {
-    console.log('waaa')
+    console.log("waaa");
     setIsCollapsed(!isCollapsed);
   };
+
+  const collapsedStyle = { height: "1rem" }; // equivalent to h-11
+  const expandedStyle = { height: "690%" };
 
   const handelInput = async (e) => {
     const inputValue = e.target.value;
@@ -170,11 +173,10 @@ function MapList() {
   return (
     <>
       <div className="items-start block gap-8 lg:flex md:mt-6 ">
-        <section className="flex-grow w-full md:w-1/3 lg:w-1/12 sm:w-2/3 max-h-[36rem] p-4 rounded-[50px] relative z-0 mt-[54px] md:mt-0">
+        <section className="flex-grow w-full md:w-1/3 lg:w-1/12 sm:w-2/3 max-h-[36rem] p-4 rounded-[50px] relative z-0 mt-[65px] md:mt-0">
           <div
-            className={`relative w-full h-auto md:max-w-md ${
-              isCollapsed ? "h-1" : "h-[590%]"
-            } `}
+            className="relative w-full h-auto md:max-w-md"
+            style={isCollapsed ? collapsedStyle : expandedStyle}
           >
             <iframe
               className={`responsive-iframe`}
@@ -188,152 +190,145 @@ function MapList() {
             </button>
             <br />
           </div>
-        </section> 
+        </section>
 
         {/* <div> */}
-          {/**  mobile header  */}
-        
+        {/**  mobile header  */}
 
         {/** card section */}
-        
-        <div className="flex items-center justify-center mt-5 mb-5 lg:hidden md:hidden md:bg-transparent ">
-          
-        </div>
-        <div className="flex-col
-         md:z-0 md:w-1/3 lg:w-1/3 max-h-[36rem] md:overflow-y-auto lg:overflow-y-auto md:overflow-x-hidden md:pr-5 pr-1 pl-1 scrollbar-sec relative md:bg-transparent bg-[#ffff] pt-1 rounded-e-[50px]">
-        <div className="flex items-center justify-center mt-5 mb-5 lg:hidden md:hidden md:bg-transparent ">
-          <div className="flex bg-[#F2F2F2] p-2 rounded-full pr-[8.4rem] relative w-[96%] ">
-            <input
-              onChange={handelInput}
-              value={value}
-              type="text"
-              id="search-dropdown"
-              className="block p-[10px] ml-1 w-[900%] md:z-20 text-[13px] text-[#787373] focus:ring-[#fff0] focus:border-blue-500 bg-[#F2F2F2] border border-none rounded-s-full "
-              placeholder="Agadir, Morocco"
-              required
-            />
-            <div
-              id="dropdown-content"
-              className={`md:z-10 z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[9rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-140%] ${
-                value ? "" : "hidden"
-              }`}
-            >
-              {value &&
-                data
-                  .filter((item) =>
-                    item.name.toLowerCase().startsWith(value.toLowerCase())
-                  )
-                  .map((item) => (
-                    <div
-                      key={item.id}
-                      onClick={() => handleDropdownClick(item.name)}
-                      className="cursor-pointer p-2 text-[10.1px] text-[#787373] ml-auto mr-auto"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width={15}
-                            height={20}
-                            color={"#787373"}
-                            fill={"none"}
-                          >
-                            <path
-                              d="M13.6177 21.367C13.1841 21.773 12.6044 22 12.0011 22C11.3978 22 10.8182 21.773 10.3845 21.367C6.41302 17.626 1.09076 13.4469 3.68627 7.37966C5.08963 4.09916 8.45834 2 12.0011 2C15.5439 2 18.9126 4.09916 20.316 7.37966C22.9082 13.4393 17.599 17.6389 13.6177 21.367Z"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            />
-                            <path
-                              d="M15.5 11C15.5 12.933 13.933 14.5 12 14.5C10.067 14.5 8.5 12.933 8.5 11C8.5 9.067 10.067 7.5 12 7.5C13.933 7.5 15.5 9.067 15.5 11Z"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            />
-                          </svg>{" "}
-                        </div>
 
-                        <div>
-                          <p> {item.name}</p>
+        <div className="flex items-center justify-center mt-5 mb-5 lg:hidden md:hidden md:bg-transparent "></div>
+        <div
+          className="flex-col
+         md:z-0 md:w-1/3 lg:w-1/3 max-h-[36rem] md:overflow-y-auto lg:overflow-y-auto md:overflow-x-hidden md:pr-5 pr-1 pl-1 scrollbar-sec relative md:bg-transparent bg-[#ffff] pt-1 rounded-e-[50px]"
+        >
+          <div className="flex items-center justify-center mt-5 mb-5 lg:hidden md:hidden md:bg-transparent ">
+            <div className="flex bg-[#F2F2F2] p-2 rounded-full pr-[8.4rem] relative w-[96%] ">
+              <input
+                onChange={handelInput}
+                value={value}
+                type="text"
+                id="search-dropdown"
+                className="block p-[10px] ml-1 w-[900%] md:z-20 text-[13px] text-[#787373] focus:ring-[#fff0] focus:border-blue-500 bg-[#F2F2F2] border border-none rounded-s-full "
+                placeholder="Agadir, Morocco"
+                required
+              />
+              <div
+                id="dropdown-content"
+                className={`md:z-10 z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[9rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-140%] ${
+                  value ? "" : "hidden"
+                }`}
+              >
+                {value &&
+                  data
+                    .filter((item) =>
+                      item.name.toLowerCase().startsWith(value.toLowerCase())
+                    )
+                    .map((item) => (
+                      <div
+                        key={item.id}
+                        onClick={() => handleDropdownClick(item.name)}
+                        className="cursor-pointer p-2 text-[10.1px] text-[#787373] ml-auto mr-auto"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              width={15}
+                              height={20}
+                              color={"#787373"}
+                              fill={"none"}
+                            >
+                              <path
+                                d="M13.6177 21.367C13.1841 21.773 12.6044 22 12.0011 22C11.3978 22 10.8182 21.773 10.3845 21.367C6.41302 17.626 1.09076 13.4469 3.68627 7.37966C5.08963 4.09916 8.45834 2 12.0011 2C15.5439 2 18.9126 4.09916 20.316 7.37966C22.9082 13.4393 17.599 17.6389 13.6177 21.367Z"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                              />
+                              <path
+                                d="M15.5 11C15.5 12.933 13.933 14.5 12 14.5C10.067 14.5 8.5 12.933 8.5 11C8.5 9.067 10.067 7.5 12 7.5C13.933 7.5 15.5 9.067 15.5 11Z"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                              />
+                            </svg>{" "}
+                          </div>
+
+                          <div>
+                            <p> {item.name}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-            </div>
+                    ))}
+              </div>
 
-            {/**   */}
+              {/**   */}
 
-            <div className="absolute inset-y-3 left-0 w-[2px] bg-[#8D8D8D] mx-[8.9rem] md:z-40 rounded-t-lg rounded-b-lg"></div>
-            <div className="flex relative right-[-27px] ">
-              <button
-                id="dropdown-button"
-                data-dropdown-toggle="dropdown"
-                className="flex-shrink-0 md:z-10 inline-flex items-center py-[-6rem] px-[-6rem] text-[14px] text-center bg-transparent text-[#787373]"
-                type="button"
-                onClick={handleButtonClick}
-              >
-                Distance
-                <svg
-                  className="w-2.5 h-2.5 ms-3.5 text-[#787373]"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
+              <div className="absolute inset-y-3 left-0 w-[2px] bg-[#8D8D8D] mx-[8.9rem] md:z-40 rounded-t-lg rounded-b-lg"></div>
+              <div className="flex relative right-[-27px] ">
+                <button
+                  id="dropdown-button"
+                  data-dropdown-toggle="dropdown"
+                  className="flex-shrink-0 md:z-10 inline-flex items-center py-[-6rem] px-[-6rem] text-[14px] text-center bg-transparent text-[#787373]"
+                  type="button"
+                  onClick={handleButtonClick}
                 >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 1 4 4 4-4"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className="relative w-full right-[-24%]">
-              <button
-                type="submit"
-                className="absolute min-w-20 text-[13px] font-medium h-full uppercase text-white bg-[#1B7CB9] rounded-[50px] border border-[#1b7cb900] hover:bg-[#336686]"
-              >
-                Search
-              </button>
-            </div>
+                  Distance
+                  <svg
+                    className="w-2.5 h-2.5 ms-3.5 text-[#787373]"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 10 6"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m1 1 4 4 4-4"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div className="relative w-full right-[-24%]">
+                <button
+                  type="submit"
+                  className="absolute min-w-20 text-[13px] font-medium h-full uppercase text-white bg-[#1B7CB9] rounded-[50px] border border-[#1b7cb900] hover:bg-[#336686]"
+                >
+                  Search
+                </button>
+              </div>
 
-            <div
-              id="dropdown"
-              className=" hidden bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%] z-50"
-            >
-              <ul
-                className="py-2 text-sm text-[#787373] dark:text-gray-200"
-                aria-labelledby="dropdown-button"
+              <div
+                id="dropdown"
+                className=" hidden bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%] z-50"
               >
-                <li>
-                  <button
-                    type="button"
-                    onClick={handleDropdownItemClick}
-                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Distance
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Rating
-                  </button>
-                </li>
-              </ul>
+                <ul
+                  className="py-2 text-sm text-[#787373] dark:text-gray-200"
+                  aria-labelledby="dropdown-button"
+                >
+                  <li>
+                    <button
+                      type="button"
+                      onClick={handleDropdownItemClick}
+                      className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    >
+                      Distance
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    >
+                      Rating
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
 
-
-
-
-
-
-        
           {Map.map((item) => {
             return (
               <section
@@ -409,8 +404,8 @@ function MapList() {
             );
           })}
         </div>
-        </div>
-        
+      </div>
+
       {/* </div> */}
     </>
   );

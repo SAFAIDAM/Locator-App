@@ -50,8 +50,9 @@ function HeaderDesktop() {
   const handleDropdownClick = (itemValue) => {
     setValue(itemValue);
     setData([]); // Hide dropdown after selection
+    const dropdown = document.getElementById("dropdown");
+    dropdown.classList.add("hidden");
   };
-
   return (
     <>
       {/**  Mobile header here */}
@@ -175,7 +176,7 @@ function HeaderDesktop() {
                               height={20}
                               color={"#787373"}
                               fill={"none"}
-                            >
+                            > a
                               <path
                                 d="M13.6177 21.367C13.1841 21.773 12.6044 22 12.0011 22C11.3978 22 10.8182 21.773 10.3845 21.367C6.41302 17.626 1.09076 13.4469 3.68627 7.37966C5.08963 4.09916 8.45834 2 12.0011 2C15.5439 2 18.9126 4.09916 20.316 7.37966C22.9082 13.4393 17.599 17.6389 13.6177 21.367Z"
                                 stroke="currentColor"

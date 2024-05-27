@@ -41,7 +41,7 @@
 
 .responsive-iframe {
   width: 100%;
-  height: 560px;
+  height: 590px;
 }
 
 /* Styles for desktop */
@@ -49,10 +49,8 @@
 
   .responsive-iframe {
     width: 800px;
-    height: 590px;
     padding-bottom: 26px;
     border-radius: 50px;
-
     
   }
 }
