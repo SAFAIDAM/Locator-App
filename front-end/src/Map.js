@@ -1,5 +1,12 @@
 const Map = [
   {
+    id: 0,
+    text1: "distance",
+    text2: "ratings",
+    text3: "cities"
+  },
+  {
+
     id: 1,
     location: "Agadir, Morocco",
     LocationMap: "BP 333 Av. Kadi Ayad, Agadir 80000",

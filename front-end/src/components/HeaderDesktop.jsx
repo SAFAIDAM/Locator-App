@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import Rating from "@mui/material/Rating";
-import Stack from "@mui/material/Stack";
-import icondirectoin from "../assets/directionsIcon.svg";
 import axios from "axios";
-import mapimg from "../assets/mapimg.svg";
+import List from "../List.js"
+
 function HeaderDesktop() {
+
   const [value, setValue] = useState("");
   const [data, setData] = useState([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [buttonText, setButtonText] = useState("Distance");
 
   const handelInput = async (e) => {
     const inputValue = e.target.value;
@@ -38,21 +39,20 @@ function HeaderDesktop() {
     }
   };
 
-  const handleButtonClick = () => {
-    const dropdown = document.getElementById("dropdown");
-    dropdown.classList.toggle("hidden");
-  };
 
-  const handleDropdownItemClick = (event) => {
-    event.stopPropagation();
+  const handleButtonClick = () => {
+    setDropdownOpen(!dropdownOpen);
   };
 
   const handleDropdownClick = (itemValue) => {
+    console.log("selected item", itemValue);
+    console.log(setButtonText);
     setValue(itemValue);
-    setData([]); // Hide dropdown after selection
-    const dropdown = document.getElementById("dropdown");
-    dropdown.classList.add("hidden");
+    setData([]);
+    setButtonText(itemValue);
+    
   };
+
   return (
     <>
       {/**  Mobile header here */}
@@ -149,7 +149,7 @@ function HeaderDesktop() {
                 className="block p-[10px] ml-1 w-[700%] z-20 text-sm text-[#787373] focus:ring-[#fff0] focus:border-blue-500 bg-[#F2F2F2] border border-none rounded-s-full "
                 placeholder="Agadir, Morocco"
                 required
-              />  
+              />
               <div
                 id="dropdown-content"
                 className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[12rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-120%] ${
@@ -176,7 +176,7 @@ function HeaderDesktop() {
                               height={20}
                               color={"#787373"}
                               fill={"none"}
-                            > a
+                            >
                               <path
                                 d="M13.6177 21.367C13.1841 21.773 12.6044 22 12.0011 22C11.3978 22 10.8182 21.773 10.3845 21.367C6.41302 17.626 1.09076 13.4469 3.68627 7.37966C5.08963 4.09916 8.45834 2 12.0011 2C15.5439 2 18.9126 4.09916 20.316 7.37966C22.9082 13.4393 17.599 17.6389 13.6177 21.367Z"
                                 stroke="currentColor"
@@ -196,33 +196,7 @@ function HeaderDesktop() {
                         </div>
                       </div>
                     ))}
-
-                {/* <ul
-        className="py-2 text-sm text-[#787373] dark:text-gray-200 s"
-        aria-labelledby="dropdown-button"
-      >
-        <li>
-          <button
-            type="button"
-            onClick={handleDropdownItem}
-            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-          >
-            Distance
-          </button>
-        </li>
-        <li>
-          <button
-            type="button"
-            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-          >
-            Templates
-          </button>
-        </li>
-      </ul> */}
               </div>
-
-              {/**   */}
-
               <div className="absolute inset-y-3 left-0 w-[2px] bg-[#8D8D8D] mx-52 z-40 rounded-t-lg rounded-b-lg"></div>
               <div className="flex relative right-[-24%]">
                 <button
@@ -232,7 +206,7 @@ function HeaderDesktop() {
                   type="button"
                   onClick={handleButtonClick}
                 >
-                  Distance
+                  {buttonText}
                   <svg
                     className="w-2.5 h-2.5 ms-3.5 text-[#787373]"
                     aria-hidden="true"
@@ -261,30 +235,31 @@ function HeaderDesktop() {
 
               <div
                 id="dropdown"
-                className="z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%]"
+                className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%] ${
+                  dropdownOpen ? "" : "hidden"
+                } `}
               >
-                <ul
-                  className="py-2 text-sm text-[#787373] dark:text-gray-200"
-                  aria-labelledby="dropdown-button"
-                >
-                  <li>
-                    <button
-                      type="button"
-                      onClick={handleDropdownItemClick}
-                      className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Distance
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Templates
-                    </button>
-                  </li>
-                </ul>
+                {List.map((item) => {
+                  return (
+
+                    <ul
+                    key={item.id}
+                    className="py-2 text-sm text-[#787373] dark:text-gray-200"
+                    aria-labelledby="dropdown-button"
+                  >
+                    <li>
+                      <button
+                        type="button"
+                        className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      >
+                        {item.text1}
+                      </button>
+                    </li>
+                  </ul>
+                    
+                  );
+                  
+                  })}
               </div>
             </div>
           </div>

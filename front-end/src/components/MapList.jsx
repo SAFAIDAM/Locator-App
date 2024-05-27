@@ -4,14 +4,16 @@ import Stack from "@mui/material/Stack";
 import icondirectoin from "../assets/directionsIcon.svg";
 import axios from "axios";
 import Map from "../Map.js";
+import List from "../List.js"
 
 function MapList() {
   const [value, setValue] = useState("");
   const [data, setData] = useState([]);
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [buttonText, setButtonText] = useState("Distance");
 
   const toggleCollapse = () => {
-    console.log("waaa");
     setIsCollapsed(!isCollapsed);
   };
 
@@ -49,17 +51,17 @@ function MapList() {
   };
 
   const handleButtonClick = () => {
-    const dropdown = document.getElementById("dropdown");
-    dropdown.classList.toggle("hidden");
+    setDropdownOpen(!dropdownOpen);
   };
 
-  const handleDropdownItemClick = (event) => {
-    event.stopPropagation();
-  };
 
   const handleDropdownClick = (itemValue) => {
+    console.log("selected item", itemValue);
+    console.log(setButtonText);
     setValue(itemValue);
     setData([]);
+    setButtonText(itemValue);
+    
   };
 
   const collapsedIcon = (
@@ -301,30 +303,31 @@ function MapList() {
 
               <div
                 id="dropdown"
-                className=" hidden bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%] z-50"
+                className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%] ${
+                  dropdownOpen ? "" : "hidden"
+                } `}
               >
-                <ul
-                  className="py-2 text-sm text-[#787373] dark:text-gray-200"
-                  aria-labelledby="dropdown-button"
-                >
-                  <li>
-                    <button
-                      type="button"
-                      onClick={handleDropdownItemClick}
-                      className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Distance
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Rating
-                    </button>
-                  </li>
-                </ul>
+                {List.map((item) => {
+                  return (
+
+                    <ul
+                    key={item.id}
+                    className="py-2 text-sm text-[#787373] dark:text-gray-200"
+                    aria-labelledby="dropdown-button"
+                  >
+                    <li>
+                      <button
+                        type="button"
+                        className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      >
+                        {item.text1}
+                      </button>
+                    </li>
+                  </ul>
+                    
+                  );
+                  
+                  })}
               </div>
             </div>
           </div>

@@ -19,7 +19,7 @@ function MapRender() {
         {/* <div className="bolck lg:hidden md:hidden ">
           <HeaderMobile />
         </div> */}
-        <MapList />
+        <MapList  />
       </div>
 
       {/** map render section */}
