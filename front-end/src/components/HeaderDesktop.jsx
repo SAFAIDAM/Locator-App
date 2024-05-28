@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import List from "../List.js"
 
@@ -6,8 +6,32 @@ function HeaderDesktop() {
 
   const [value, setValue] = useState("");
   const [data, setData] = useState([]);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [buttonText, setButtonText] = useState("Distance");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const handleButtonClick = () => {
+    setDropdownOpen((prevState) => !prevState);
+  };
+
+  const handleClickOutside = (event) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target) &&
+      !buttonRef.current.contains(event.target)
+    ) {
+      setDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
 
   const handelInput = async (e) => {
     const inputValue = e.target.value;
@@ -39,17 +63,9 @@ function HeaderDesktop() {
     }
   };
 
-
-  const handleButtonClick = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
   const handleDropdownClick = (itemValue) => {
-    console.log("selected item", itemValue);
-    console.log(setButtonText);
     setValue(itemValue);
     setData([]);
-    setButtonText(itemValue);
     
   };
 
@@ -199,8 +215,10 @@ function HeaderDesktop() {
               </div>
               <div className="absolute inset-y-3 left-0 w-[2px] bg-[#8D8D8D] mx-52 z-40 rounded-t-lg rounded-b-lg"></div>
               <div className="flex relative right-[-24%]">
-                <button
+
+                {/* <button
                   id="dropdown-button"
+                  ref={buttonRef}
                   data-dropdown-toggle="dropdown"
                   className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-[14px] text-center bg-[#F2F2F2] text-[#787373]"
                   type="button"
@@ -222,7 +240,17 @@ function HeaderDesktop() {
                       d="m1 1 4 4 4-4"
                     />
                   </svg>
-                </button>
+                </button> */}
+<form action="">
+<select id="countries" className="border border-none focus:ring-transparent w-[6.5rem] flex-shrink-0 z-10 inline-flex items-center py-2.5 px-2 text-[14px] text-start bg-[#F2F2F2] text-[#787373]">
+    <option selected>Distance</option>
+    <option value="US">United States</option>
+    <option value="CA">Canada</option>
+    <option value="FR">France</option>
+    <option value="DE">Germany</option>
+  </select>
+</form>
+
               </div>
               <div className="relative w-full right-[-24%]">
                 <button
@@ -233,8 +261,9 @@ function HeaderDesktop() {
                 </button>
               </div>
 
-              <div
+              {/* <div
                 id="dropdown"
+                ref={dropdownRef}
                 className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%] ${
                   dropdownOpen ? "" : "hidden"
                 } `}
@@ -260,7 +289,7 @@ function HeaderDesktop() {
                   );
                   
                   })}
-              </div>
+              </div> */}
             </div>
           </div>
         </nav>

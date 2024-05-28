@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import icondirectoin from "../assets/directionsIcon.svg";
@@ -13,11 +13,35 @@ function MapList() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [buttonText, setButtonText] = useState("Distance");
 
+  const dropdownRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const handleButtonClick = () => {
+    setDropdownOpen((prevState) => !prevState);
+  };
+
+  const handleClickOutside = (event) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target) &&
+      !buttonRef.current.contains(event.target)
+    ) {
+      setDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
 
-  const collapsedStyle = { height: "1rem" }; // equivalent to h-11
+  const collapsedStyle = { height: "1rem" }; 
   const expandedStyle = { height: "690%" };
 
   const handelInput = async (e) => {
@@ -49,11 +73,6 @@ function MapList() {
       setData([]);
     }
   };
-
-  const handleButtonClick = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
 
   const handleDropdownClick = (itemValue) => {
     console.log("selected item", itemValue);
@@ -266,32 +285,13 @@ function MapList() {
               {/**   */}
 
               <div className="absolute inset-y-3 left-0 w-[2px] bg-[#8D8D8D] mx-[8.9rem] md:z-40 rounded-t-lg rounded-b-lg"></div>
-              <div className="flex relative right-[-27px] ">
-                <button
-                  id="dropdown-button"
-                  data-dropdown-toggle="dropdown"
-                  className="flex-shrink-0 md:z-10 inline-flex items-center py-[-6rem] px-[-6rem] text-[14px] text-center bg-transparent text-[#787373]"
-                  type="button"
-                  onClick={handleButtonClick}
-                >
-                  Distance
-                  <svg
-                    className="w-2.5 h-2.5 ms-3.5 text-[#787373]"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 10 6"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m1 1 4 4 4-4"
-                    />
-                  </svg>
-                </button>
-              </div>
+              <select id="countries" className="border border-none focus:ring-transparent w-[6.5rem] flex-shrink-0 z-10 inline-flex items-center py-2.5 px-2 text-[14px] text-start bg-[#F2F2F2] text-[#787373] mr-[-3rem]">
+    <option selected>Distance</option>
+    <option value="US">United </option>
+    <option value="CA">Canada</option>
+    <option value="FR">France</option>
+    <option value="DE">Germany</option>
+  </select>
               <div className="relative w-full right-[-24%]">
                 <button
                   type="submit"
@@ -303,6 +303,7 @@ function MapList() {
 
               <div
                 id="dropdown"
+                ref={dropdownRef}
                 className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%] ${
                   dropdownOpen ? "" : "hidden"
                 } `}
