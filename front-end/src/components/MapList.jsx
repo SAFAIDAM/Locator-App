@@ -275,7 +275,7 @@ function MapList() {
                           </div>
 
                           <div>
-                            <p> {item.name}</p>
+                            <p>{item.name}</p>
                           </div>
                         </div>
                       </div>
@@ -284,7 +284,7 @@ function MapList() {
 
               {/**   */}
 
-              <div className="absolute inset-y-3 left-0 w-[2px] bg-[#8D8D8D] mx-[8.9rem] md:z-40 rounded-t-lg rounded-b-lg"></div>
+              <div className="absolute inset-y-3 left-0 w-[2px] bg-[#8D8D8D] mx-[9rem] md:z-40 rounded-t-lg rounded-b-lg"></div>
               <select id="countries" className="border border-none focus:ring-transparent w-[6.5rem] flex-shrink-0 z-10 inline-flex items-center py-2.5 px-2 text-[14px] text-start bg-[#F2F2F2] text-[#787373] mr-[-3rem]">
     <option selected>Distance</option>
     <option value="US">United </option>
@@ -299,36 +299,6 @@ function MapList() {
                 >
                   Search
                 </button>
-              </div>
-
-              <div
-                id="dropdown"
-                ref={dropdownRef}
-                className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%] ${
-                  dropdownOpen ? "" : "hidden"
-                } `}
-              >
-                {List.map((item) => {
-                  return (
-
-                    <ul
-                    key={item.id}
-                    className="py-2 text-sm text-[#787373] dark:text-gray-200"
-                    aria-labelledby="dropdown-button"
-                  >
-                    <li>
-                      <button
-                        type="button"
-                        className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        {item.text1}
-                      </button>
-                    </li>
-                  </ul>
-                    
-                  );
-                  
-                  })}
               </div>
             </div>
           </div>

@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import List from "../List.js"
+import List from "../List.js";
 
 function HeaderDesktop() {
-
   const [value, setValue] = useState("");
   const [data, setData] = useState([]);
   const [buttonText, setButtonText] = useState("Distance");
@@ -26,12 +25,11 @@ function HeaderDesktop() {
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
 
   const handelInput = async (e) => {
     const inputValue = e.target.value;
@@ -66,7 +64,6 @@ function HeaderDesktop() {
   const handleDropdownClick = (itemValue) => {
     setValue(itemValue);
     setData([]);
-    
   };
 
   return (
@@ -215,42 +212,19 @@ function HeaderDesktop() {
               </div>
               <div className="absolute inset-y-3 left-0 w-[2px] bg-[#8D8D8D] mx-52 z-40 rounded-t-lg rounded-b-lg"></div>
               <div className="flex relative right-[-24%]">
-
-                {/* <button
-                  id="dropdown-button"
-                  ref={buttonRef}
-                  data-dropdown-toggle="dropdown"
-                  className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-[14px] text-center bg-[#F2F2F2] text-[#787373]"
-                  type="button"
-                  onClick={handleButtonClick}
-                >
-                  {buttonText}
-                  <svg
-                    className="w-2.5 h-2.5 ms-3.5 text-[#787373]"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 10 6"
+               
+                <form action="">
+                  <select
+                    id="countries"
+                    className="border border-none focus:ring-transparent w-[6.5rem] flex-shrink-0 z-10 inline-flex items-center py-2.5 px-2 text-[14px] text-start bg-[#F2F2F2] text-[#787373]"
                   >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m1 1 4 4 4-4"
-                    />
-                  </svg>
-                </button> */}
-<form action="">
-<select id="countries" className="border border-none focus:ring-transparent w-[6.5rem] flex-shrink-0 z-10 inline-flex items-center py-2.5 px-2 text-[14px] text-start bg-[#F2F2F2] text-[#787373]">
-    <option selected>Distance</option>
-    <option value="US">United States</option>
-    <option value="CA">Canada</option>
-    <option value="FR">France</option>
-    <option value="DE">Germany</option>
-  </select>
-</form>
-
+                    <option selected>Distance</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                  </select>
+                </form>
               </div>
               <div className="relative w-full right-[-24%]">
                 <button
