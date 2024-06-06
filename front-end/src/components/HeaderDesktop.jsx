@@ -119,7 +119,7 @@ function HeaderDesktop() {
                   <div
                     key={item.id}
                     onClick={() => handleDropdownClick(item.name)}
-                    className="cursor-pointer p-2 text-sm text-[#787373] ml-auto mr-auto hover:bg-[#dddddd]"
+                    className="cursor-pointer p-2 text-sm text-[#787373] ml-auto mr-auto hover:bg-[#f8f7f7]"
                   >
                     <div className="flex items-center gap-3">
                       <div>

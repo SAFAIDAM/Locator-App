@@ -198,12 +198,15 @@ function MapList() {
                   }`}
                 >
                   {data &&
-                    data.map((item) => {
+                    data
+                    .filter((item) => item.address.city.toLowerCase().startsWith(item.address.city.toLowerCase())
+                  )
+                  .map((item) => {
                       return (
                         <div
                           key={item.id}
                           // onClick={() => handleDropdownOpen(item.address.city)}
-                          className="cursor-pointer p-2 text-[10.1px] text-[#787373] ml-auto mr-auto"
+                          className="cursor-pointer p-2 text-[10.1px] text-[#787373] ml-auto mr-auto hover:bg-[#f8f7f7]"
                         >
                           <div className="flex items-center gap-3">
                             <div>
@@ -261,8 +264,7 @@ function MapList() {
               </div>
             </div>
 
-            {
-              data && data.map((item) => {
+            {data && data.map((item) => {
                 return (
                   <section
                     key={item.id}
@@ -310,7 +312,7 @@ function MapList() {
                           <Rating readOnly defaultValue={item.reviews_count} />
                         </Stack>
                         <p className="text-[#AAAAAA] text-[12px]">
-                          {item.reviews_count}
+                          {`(${item.reviews_count})`}
                         </p>
                       </div>
                       <div className="flex items-center gap-1">

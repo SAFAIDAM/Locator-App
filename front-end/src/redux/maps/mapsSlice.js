@@ -1,11 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
-
 
 const mapsSlice = createSlice({
   name: 'map',
   initialState: {
     data: [],
+    dataPerpage: 10,
+    currentPage: 1,
     isLoading: false,
     error: null
   },
