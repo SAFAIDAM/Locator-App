@@ -1,4 +1,4 @@
-const Map = [
+const MapData = [
   {
 
     id: 1,
@@ -142,4 +142,4 @@ const Map = [
   }
 ];
 
-export default Map;
+export default MapData;

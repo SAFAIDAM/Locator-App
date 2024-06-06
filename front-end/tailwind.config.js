@@ -6,7 +6,11 @@ export default {
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'tablet1': '600px', // custom breakpoint for 600px width screens
+      },
+    },
   },
   plugins: [
     require('flowbite/plugin'),

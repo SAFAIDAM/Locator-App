@@ -1,73 +1,35 @@
 import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
-import List from "../List.js";
+import { useDispatch } from "react-redux";
+import { fetchData } from "../redux/maps/mapsSlice";
+import { useSelector } from "react-redux";
 
 function HeaderDesktop() {
-  const [value, setValue] = useState("");
-  const [data, setData] = useState([]);
-  const [buttonText, setButtonText] = useState("Distance");
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
-  const buttonRef = useRef(null);
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.map.data);
+  const isLoading = useSelector((state) => state.map.isLoading);
+  const [search, setSearch] = useState("");
+  const [twosearch, settwoSearch] = useState("");
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(true);
+  
 
-  const handleButtonClick = () => {
-    setDropdownOpen((prevState) => !prevState);
-  };
-
-  const handleClickOutside = (event) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target) &&
-      !buttonRef.current.contains(event.target)
-    ) {
-      setDropdownOpen(false);
-    }
-  };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    dispatch(fetchData());
   }, []);
 
-  const handelInput = async (e) => {
-    const inputValue = e.target.value;
-    setValue(inputValue);
-
-    if (inputValue.trim() !== "") {
-      const response = {
-        method: "GET",
-        url: "https://wft-geo-db.p.rapidapi.com/v1/geo/adminDivisions",
-        headers: {
-          "X-RapidAPI-Key":
-            "f9c903cfdfmshef4a7ef13939606p1bfc95jsnbdb061abf24a",
-          "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
-        },
-        params: {
-          namePrefix: inputValue,
-        },
-      };
-
-      try {
-        const result = await axios.request(response);
-        console.log(result.data.data);
-        setData(result.data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    } else {
-      setData([]);
-    }
-  };
-
   const handleDropdownClick = (itemValue) => {
-    setValue(itemValue);
-    setData([]);
-  };
+    settwoSearch(itemValue);
+    setShowDropdown(false);
+  }
+
+  const handleDropdownClicktwo = (itemValue) => {
+    setSearch(itemValue);
+    setShowDropdown(false);
+  }
 
   return (
-    <>
+    <main>
       {/**  Mobile header here */}
       <div className="fixed top-0 left-0 right-0 z-10 block m-0 bg-white shadow-md lg:hidden md:hidden mobile-nav">
         <div className="relative">
@@ -106,11 +68,14 @@ function HeaderDesktop() {
           />
         </div>
       </div>
-      {/**  Desktopheader here */}
       <div className="hidden lg:block md:block">
         <nav className="flex items-center gap-4 mt-6">
           <div className="relative flex-grow">
             <input
+            value={twosearch}
+            onChange={(e) => { settwoSearch(e.target.value) 
+              setShowDropdown(true)
+            }}
               type="search"
               id="default-search"
               className="search-input block w-full p-[21px] ps-10 text-xs text-gray-900 border-none bg-[#F2F2F2] focus:ring-[#fff0] focus:border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-full"
@@ -141,88 +106,130 @@ function HeaderDesktop() {
                   strokeLinejoin="round"
                 />
               </svg>
-              {/* <section className="flex-grow w-full md:w-2/3 lg:w-3/4 p-4 bg-[#F2F2F2] rounded-[30px]">
-          <img
-            className="w-full h-auto mx-auto md:max-w-md lg:max-w-lg"
-            src={mapimg}
-            alt="Map"
-          />
-        </section> */}
             </div>
+            {showDropdown && (
+              <div
+              id="dropdown"
+              className={`md:z-10 z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[47rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-2%] ${
+                twosearch ? "" : "hidden"
+              }`}
+            >
+              {data && data.map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    onClick={() => handleDropdownClick(item.name)}
+                    className="cursor-pointer p-2 text-sm text-[#787373] ml-auto mr-auto hover:bg-[#dddddd]"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          width={20}
+                          height={20}
+                          color={"#787373"}
+                          fill={"none"}
+                        >
+                          <path
+                            d="M13.6177 21.367C13.1841 21.773 12.6044 22 12.0011 22C11.3978 22 10.8182 21.773 10.3845 21.367C6.41302 17.626 1.09076 13.4469 3.68627 7.37966C5.08963 4.09916 8.45834 2 12.0011 2C15.5439 2 18.9126 4.09916 20.316 7.37966C22.9082 13.4393 17.599 17.6389 13.6177 21.367Z"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                          />
+                          <path
+                            d="M15.5 11C15.5 12.933 13.933 14.5 12 14.5C10.067 14.5 8.5 12.933 8.5 11C8.5 9.067 10.067 7.5 12 7.5C13.933 7.5 15.5 9.067 15.5 11Z"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                          />
+                        </svg>{" "}
+                      </div>
+  
+                      <div>
+                        <p className="">{item.name}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+              
+            )}
+            
+        
           </div>
           <div>
             {/** input Moroccan cities suggestions  */}
 
             <div className="flex bg-[#F2F2F2] p-2 rounded-full md:pr-36 relative">
               <input
-                onChange={handelInput}
-                value={value}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 type="text"
                 id="search-dropdown"
                 className="block p-[10px] ml-1 w-[700%] z-20 text-sm text-[#787373] focus:ring-[#fff0] focus:border-blue-500 bg-[#F2F2F2] border border-none rounded-s-full "
-                placeholder="Agadir, Morocco"
+                placeholder="Search By City"
                 required
               />
-              <div
+              { showDropdown && (
+                <div
                 id="dropdown-content"
-                className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[12rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-120%] ${
-                  value ? "" : "hidden"
+              
+                className={`md:z-10 z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[11rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-140%] ${
+                  search ? "" : "hidden"
                 }`}
               >
-                {value &&
-                  data
-                    .filter((item) =>
-                      item.name.toLowerCase().startsWith(value.toLowerCase())
-                    )
-                    .map((item) => (
-                      <div
-                        key={item.id}
-                        onClick={() => handleDropdownClick(item.name)}
-                        className="cursor-pointer p-2 text-sm text-[#787373] ml-auto mr-auto"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              width={20}
-                              height={20}
-                              color={"#787373"}
-                              fill={"none"}
-                            >
-                              <path
-                                d="M13.6177 21.367C13.1841 21.773 12.6044 22 12.0011 22C11.3978 22 10.8182 21.773 10.3845 21.367C6.41302 17.626 1.09076 13.4469 3.68627 7.37966C5.08963 4.09916 8.45834 2 12.0011 2C15.5439 2 18.9126 4.09916 20.316 7.37966C22.9082 13.4393 17.599 17.6389 13.6177 21.367Z"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                              />
-                              <path
-                                d="M15.5 11C15.5 12.933 13.933 14.5 12 14.5C10.067 14.5 8.5 12.933 8.5 11C8.5 9.067 10.067 7.5 12 7.5C13.933 7.5 15.5 9.067 15.5 11Z"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                              />
-                            </svg>{" "}
-                          </div>
+                {data && data.map((item) => {
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => handleDropdownClicktwo(item.address.city)}
+                      className="cursor-pointer p-2 text-sm text-[#787373] ml-auto mr-auto"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width={20}
+                            height={20}
+                            color={"#787373"}
+                            fill={"none"}
+                          >
+                            <path
+                              d="M13.6177 21.367C13.1841 21.773 12.6044 22 12.0011 22C11.3978 22 10.8182 21.773 10.3845 21.367C6.41302 17.626 1.09076 13.4469 3.68627 7.37966C5.08963 4.09916 8.45834 2 12.0011 2C15.5439 2 18.9126 4.09916 20.316 7.37966C22.9082 13.4393 17.599 17.6389 13.6177 21.367Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                            />
+                            <path
+                              d="M15.5 11C15.5 12.933 13.933 14.5 12 14.5C10.067 14.5 8.5 12.933 8.5 11C8.5 9.067 10.067 7.5 12 7.5C13.933 7.5 15.5 9.067 15.5 11Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                            />
+                          </svg>{" "}
+                        </div>
 
-                          <div>
-                            <p> {item.name}</p>
-                          </div>
+                        <div>
+                          <p className="">{item.address.city}</p>
                         </div>
                       </div>
-                    ))}
+                    </div>
+                  );
+                })}
               </div>
+                
+              )}
+              
               <div className="absolute inset-y-3 left-0 w-[2px] bg-[#8D8D8D] mx-52 z-40 rounded-t-lg rounded-b-lg"></div>
               <div className="flex relative right-[-24%]">
-               
                 <form action="">
                   <select
                     id="countries"
                     className="border border-none focus:ring-transparent w-[6.5rem] flex-shrink-0 z-10 inline-flex items-center py-2.5 px-2 text-[14px] text-start bg-[#F2F2F2] text-[#787373]"
                   >
                     <option selected>Distance</option>
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
+                    <option value="US">Distance</option>
+                    <option value="CA">Best rated</option>
+                    
                   </select>
                 </form>
               </div>
@@ -234,41 +241,11 @@ function HeaderDesktop() {
                   Search
                 </button>
               </div>
-
-              {/* <div
-                id="dropdown"
-                ref={dropdownRef}
-                className={`z-10 bg-[#F2F2F2] divide-y divide-gray-100 rounded-lg shadow-md w-[7rem] dark:bg-gray-700 absolute top-full mt-1 right-0 transform translate-x-[-80%] ${
-                  dropdownOpen ? "" : "hidden"
-                } `}
-              >
-                {List.map((item) => {
-                  return (
-
-                    <ul
-                    key={item.id}
-                    className="py-2 text-sm text-[#787373] dark:text-gray-200"
-                    aria-labelledby="dropdown-button"
-                  >
-                    <li>
-                      <button
-                        type="button"
-                        className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        {item.text1}
-                      </button>
-                    </li>
-                  </ul>
-                    
-                  );
-                  
-                  })}
-              </div> */}
             </div>
           </div>
         </nav>
       </div>
-    </>
+    </main>
   );
 }
 
