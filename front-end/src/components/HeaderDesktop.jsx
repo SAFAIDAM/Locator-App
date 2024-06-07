@@ -5,13 +5,12 @@ import { useSelector } from "react-redux";
 
 function HeaderDesktop() {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.map.data);
+  const { data } = useSelector((state) => state.map.data.items.data);
   const isLoading = useSelector((state) => state.map.isLoading);
   const [search, setSearch] = useState("");
   const [twosearch, settwoSearch] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
   const [showDropdown, setShowDropdown] = useState(true);
-  
 
 
   useEffect(() => {
@@ -114,7 +113,11 @@ function HeaderDesktop() {
                 twosearch ? "" : "hidden"
               }`}
             >
-              {data && data.map((item) => {
+              {data && 
+              data.filter((item) => {
+                return item.name.toLowerCase().includes(twosearch.toLowerCase())
+              })
+              .map((item) => {
                 return (
                   <div
                     key={item.id}
@@ -178,7 +181,11 @@ function HeaderDesktop() {
                   search ? "" : "hidden"
                 }`}
               >
-                {data && data.map((item) => {
+                {data && 
+                 data.filter((item) => {
+                  return item.name.toLowerCase().includes(search.toLowerCase())
+                })
+                .map((item) => {
                   return (
                     <div
                       key={item.id}
