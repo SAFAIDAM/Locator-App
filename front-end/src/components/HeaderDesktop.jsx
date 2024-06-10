@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchData } from "../redux/maps/mapsSlice";
+import { fetchData , setLocation} from "../redux/maps/mapsSlice";
 import { useSelector } from "react-redux";
 
 function HeaderDesktop() {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.map.data.items.data);
+  const  data  = useSelector((state) => state.map.data);
+  const currentLocation = useSelector((state) => state.map.currentLocation)
   const isLoading = useSelector((state) => state.map.isLoading);
   const [search, setSearch] = useState("");
   const [twosearch, settwoSearch] = useState("");
@@ -18,7 +19,9 @@ function HeaderDesktop() {
   }, []);
 
   const handleDropdownClick = (itemValue) => {
-    settwoSearch(itemValue);
+    console.log(itemValue)
+    dispatch(setLocation({lat: parseInt(itemValue.address.latitude), lng: parseInt(itemValue.address.longitude)}))
+    settwoSearch(itemValue.name);
     setShowDropdown(false);
   }
 
@@ -121,7 +124,7 @@ function HeaderDesktop() {
                 return (
                   <div
                     key={item.id}
-                    onClick={() => handleDropdownClick(item.name)}
+                    onClick={() => handleDropdownClick(item)}
                     className="cursor-pointer p-2 text-sm text-[#787373] ml-auto mr-auto hover:bg-[#f8f7f7]"
                   >
                     <div className="flex items-center gap-3">

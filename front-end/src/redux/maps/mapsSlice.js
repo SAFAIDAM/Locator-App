@@ -5,15 +5,19 @@ const mapsSlice = createSlice({
   name: 'map',
   initialState: {
     data: [],
+    results: [],
     totalItems: 0,
     dataPerpage: 10,
-    currentPage: 1,
+    currentLocation: {lat: 46.5503307448678, lng: 2.4061195414215795},
     isLoading: false,
     error: null
   },
   reducers: {
     setData: (state, action) => {
       state.data = action.payload;
+    },
+    setResults: (state, action) => {
+      state.results = action.payload;
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
@@ -23,19 +27,18 @@ const mapsSlice = createSlice({
     },
     setDataPerPage: (state, action) => {
       state.dataPerpage = action.payload;
-    },
-
+    }, 
+    setLocation: (state, action) => {
+      state.currentLocation = action.payload;
+    }
   },
 });
 
-export const { setData, setLoading, setCurrentPage, setDataPerPage } = mapsSlice.actions;
+export const { setData, setLoading, setCurrentPage, setDataPerPage, setResults, setLocation } = mapsSlice.actions;
 export default mapsSlice.reducer;
 
 const bearerToken = import.meta.env.VITE_BEARER;
-
-
-
-export const fetchData = (page = 1, dataPerPage = 10) => async dispatch => {
+export const fetchData = ( page ) => async dispatch => {
   try {
     dispatch(setLoading(true))
     const response = await axios.get('https://apis.kustplace.com/v3/2700/shops', {
@@ -43,17 +46,13 @@ export const fetchData = (page = 1, dataPerPage = 10) => async dispatch => {
         Authorization: `Bearer ${bearerToken}`,
         "Content-Type": "application/json; charset=UTF-8"
       },
-      params: {
-        page, 
-        per_page: dataPerPage
-      }
+
     }
     )
-    console.log(response.data)
-    await dispatch(setData(response.data))
+
+    await dispatch(setData(response.data.data));
+    dispatch(setResults(response.data.data.slice(0, 5)))
     dispatch(setLoading(false))
-    dispatch(setCurrentPage(page))
-    dispatch(setDataPerPage(dataPerPage))
   } catch (error) {
     // Handle any errors
     return console.error("Error fetching data:", error);

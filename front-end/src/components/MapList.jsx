@@ -2,41 +2,32 @@ import React, { useEffect, useState, useRef } from "react";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import icondirectoin from "../assets/directionsIcon.svg";
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import { APIProvider, Map, Marker, InfoWindow } from "@vis.gl/react-google-maps";
 import { useDispatch } from "react-redux";
-import { fetchData } from "../redux/maps/mapsSlice";
+import { fetchData , setResults , setLocation} from "../redux/maps/mapsSlice";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function MapList() {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.map.data);
-  console.log("data", data);
+  const results = useSelector((state) => state.map.results)
   const isLoading = useSelector((state) => state.map.isLoading);
-  const totalItems = useSelector((state) => state.map.totalItems);
-  const dataPerPage = useSelector((state) => state.map.dataPerPage);
-  const currentPage = useSelector((state) => state.map.currentPage);
-  
-  console.log(
-    "ajdgasj",
-    useSelector((state) => state)
-  );
+  const currentLocation = useSelector((state) => state.map.currentLocation)
+  const [page, setPage] = useState(1)
   const [search, setSearch] = useState("");
 
-  const startIndex = (currentPage - 1) * dataPerPage;
-  const endIndex = startIndex + dataPerPage;
-  const paginatedItems = data.slice(startIndex, endIndex);
+   const handleShowMore= () => {
+    setPage(page + 1)
+    const array = data.slice(0, page * 5)
+    dispatch(setResults(array))
+  }
 
   useEffect(() => {
-    dispatch(fetchData(currentPage, dataPerPage));
-  }, [dispatch, currentPage, dataPerPage]);
-
-  const handlePageChange = (newPage) => {
-    dispatch(currentPage(newPage));
-  };
-
-  const totalPages = Math.ceil(totalItems / dataPerPage);
-
+    dispatch(fetchData( ));
+  }, []);
+  
+  
   const [isCollapsed, setIsCollapsed] = useState(true);
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -157,13 +148,10 @@ function MapList() {
     </svg>
   );
 
-  const position = { lat: 46.41256397474785, lng: 2.1884029694087452 };
 
   return (
     <>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
+      
         <APIProvider apiKey={import.meta.env.VITE_GOOGLE_API_KEY}>
           <div className="items-start block gap-8 lg:flex md:mt-6 ">
             <section className="flex-grow w-full md:w-1/3 lg:w-1/12 sm:w-2/3 max-h-[36rem] p-4 rounded-[50px] relative z-0 mt-[65px] md:mt-0">
@@ -174,7 +162,21 @@ function MapList() {
                 <div
                   className={`responsive-iframe lg:ml-[-1rem] md:w-[340%] lg:w-[178%]`}
                 >
-                  <Map defaultZoom={10} defaultCenter={position}></Map>
+                  <Map defaultZoom={20} center={currentLocation}>
+                  
+                  { data.length > 0 && 
+                    data.map((item) => {
+                      return (
+                        <Marker
+                          key={item.id}
+                          position={{lat: parseInt(item.address.latitude), lng: parseInt(item.address.longitude)}}
+                        >
+                          
+                        </Marker>
+                      )
+                    })
+                  }
+                  </Map>
                 </div>
                 <button
                   className="button lg:hidden absolute top-1 right-0 md:hidden flex p-2 bg-[#828282db] rounded-full cursor-pointer text-white"
@@ -214,8 +216,7 @@ function MapList() {
                     }`}
                   >
                     {data &&
-                      data
-                        .filter((item) =>
+                      data.filter((item) =>
                           item.address.city
                             .toLowerCase()
                             .startsWith(item.address.city.toLowerCase())
@@ -284,8 +285,12 @@ function MapList() {
                   </div>
                 </div>
               </div>
-              { data &&
-                data.map((item) => {
+              {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+         { results &&
+                results.map((item) => {
                   return (
                     <>
                       <section
@@ -360,24 +365,16 @@ function MapList() {
                           </p>
                         </div>
                       </section>
-                      <div>
-                        {Array.from({ length: totalPages }, (_, index) => (
-                          <button
-                            key={index + 1}
-                            onClick={() => handlePageChange(index + 1)}
-                            disabled={currentPage === index + 1}
-                          >
-                            {index + 1}
-                          </button>
-                        ))}
-                      </div>
+
                     </>
                   );
-                })}
+                })}</>
+             )}
+                <button onClick={ () => handleShowMore()} className="text-black text-lg flex align-middle items-center ml-auto mr-auto">Show more</button>
             </div>
           </div>
         </APIProvider>
-      )}
+     
     </>
   );
 }
