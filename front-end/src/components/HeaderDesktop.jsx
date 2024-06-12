@@ -13,14 +13,12 @@ function HeaderDesktop() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showDropdown, setShowDropdown] = useState(true);
 
-
   useEffect(() => {
     dispatch(fetchData());
   }, []);
 
   const handleDropdownClick = (itemValue) => {
-    console.log(itemValue)
-    dispatch(setLocation({lat: parseInt(itemValue.address.latitude), lng: parseInt(itemValue.address.longitude)}))
+    dispatch(setLocation({lat: parseFloat(itemValue.address.latitude), lng: parseFloat(itemValue.address.longitude)}))
     settwoSearch(itemValue.name);
     setShowDropdown(false);
   }

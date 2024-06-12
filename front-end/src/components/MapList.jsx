@@ -2,11 +2,12 @@ import React, { useEffect, useState, useRef } from "react";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import icondirectoin from "../assets/directionsIcon.svg";
-import { APIProvider, Map, Marker, InfoWindow } from "@vis.gl/react-google-maps";
+import { APIProvider, Map, Marker, InfoWindow, AdvancedMarker } from "@vis.gl/react-google-maps";
 import { useDispatch } from "react-redux";
 import { fetchData , setResults , setLocation} from "../redux/maps/mapsSlice";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import markerImage from '../assets/devoxx-morocco.jpg'
 
 function MapList() {
   const dispatch = useDispatch();
@@ -148,6 +149,48 @@ function MapList() {
     </svg>
   );
 
+  const getStatus = (schedule) => {
+   
+    function timeToMinutes(timeString) {
+      const [hours, minutes] = timeString.split(':').map(Number);
+      return hours * 60 + minutes;
+    }
+  
+  
+    const currentDate = new Date();
+    const currentHours = currentDate.getHours();
+    const currentMinutes = currentDate.getMinutes();
+    const currentTimeInMinutes = currentHours * 60 + currentMinutes;
+  
+
+    for (const { To, From } of schedule) {
+      const openTimeInMinutes = timeToMinutes(From);
+      const closeTimeInMinutes = timeToMinutes(To);
+  
+
+      if (currentTimeInMinutes >= openTimeInMinutes && currentTimeInMinutes < closeTimeInMinutes) {
+        return `Open, Closes at ${To}`;
+      }
+    }
+  
+    
+    return `Closed, Opens at ${schedule[0].From}`;
+  }
+  const getCurrentDay = () => {
+    const daysOfWeek = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+    const currentDate = new Date();
+    const currentDayIndex = currentDate.getDay();
+
+    return daysOfWeek[currentDayIndex];
+  }
+  const getCurrentSchedule = openHours => { 
+    if (!openHours) return 
+    const currentDay = getCurrentDay()
+    const results = Object.keys(openHours).filter((key) => key === currentDay)
+   
+    const openValues = openHours[results]
+    return getStatus(openValues)
+  }
 
   return (
     <>
@@ -162,16 +205,17 @@ function MapList() {
                 <div
                   className={`responsive-iframe lg:ml-[-1rem] md:w-[340%] lg:w-[178%]`}
                 >
-                  <Map defaultZoom={20} center={currentLocation}>
+                  <Map defaultZoom={12} center={currentLocation}>
                   
                   { data.length > 0 && 
                     data.map((item) => {
                       return (
                         <Marker
                           key={item.id}
+                          
                           position={{lat: parseInt(item.address.latitude), lng: parseInt(item.address.longitude)}}
                         >
-                          
+                        {/* <img src={markerImage} width={32} height={32} /> */}
                         </Marker>
                       )
                     })
@@ -347,12 +391,9 @@ function MapList() {
                           </div>
                           <div className="flex items-center gap-1">
                             <p className="flex items-center text-sm font-medium ml-1 text-[#78C65A]">
-                              Open
+                              {getCurrentSchedule(item.opening_hours)}
                             </p>
-                            <span className="">.</span>
-                            <p className="text-sm font-medium ml-1 text-[#8D8D8D]">
-                              Closes at 12PM
-                            </p>
+                            
                           </div>
                         </div>
 
@@ -370,7 +411,7 @@ function MapList() {
                   );
                 })}</>
              )}
-                <button onClick={ () => handleShowMore()} className="text-black text-lg flex align-middle items-center ml-auto mr-auto">Show more</button>
+                <button onClick={ () => handleShowMore()} className="flex items-center ml-auto mr-auto text-lg text-black align-middle">Show more</button>
             </div>
           </div>
         </APIProvider>
