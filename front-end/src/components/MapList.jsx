@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { fetchData , setResults , setLocation} from "../redux/maps/mapsSlice";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import markerImage from '../assets/devoxx-morocco.jpg'
+
 
 function MapList() {
   const dispatch = useDispatch();
